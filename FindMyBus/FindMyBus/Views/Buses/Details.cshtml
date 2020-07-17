@@ -1,0 +1,46 @@
+﻿@model FindMyBus.Models.Bus
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container">
+
+    <div>
+        <h4 class="mt-4" style="text-transform:uppercase;">Bus Details</h4>
+        <hr />
+        <table id="" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    <th>
+                        @Html.DisplayNameFor(model => model.Number)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalSeats)
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TotalSeats)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="/Buses/Index" class="btn btn-warning" title="Back to list"><i class="fas fa-long-arrow-alt-left"></i> </a>
+
+
+
+</div>

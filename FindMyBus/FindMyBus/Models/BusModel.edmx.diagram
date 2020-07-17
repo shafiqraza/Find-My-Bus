@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="639802f5090e4ef695e4c19eec8a282a" Name="Diagram1" ZoomLevel="60" >
+        <EntityTypeShape EntityType="BusModel.Login" Width="1.5" PointX="3" PointY="6.25" />
+        <EntityTypeShape EntityType="BusModel.LoginRoles" Width="1.5" PointX="5.25" PointY="3.625" />
+        <AssociationConnector Association="BusModel.LoginLoginRoles" />
+        <EntityTypeShape EntityType="BusModel.BusBooking" Width="1.5" PointX="5.25" PointY="7" />
+        <AssociationConnector Association="BusModel.LoginBusBooking" />
+        <EntityTypeShape EntityType="BusModel.Bus" Width="1.5" PointX="0.75" PointY="4.625" />
+        <AssociationConnector Association="BusModel.BusBusBooking" />
+        <EntityTypeShape EntityType="BusModel.BusRoutes" Width="1.5" PointX="3" PointY="9.5" />
+        <AssociationConnector Association="BusModel.BusBusRoutes" />
+        <EntityTypeShape EntityType="BusModel.Driver" Width="1.5" PointX="3" PointY="3.125" />
+        <AssociationConnector Association="BusModel.BusRoutesBusBooking" />
+        <AssociationConnector Association="BusModel.BusDriver" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,138 @@
+﻿@model FindMyBus.Models.BusRoutes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="container">
+
+    <h3 class="mt-4" style="text-align:center;text-transform:uppercase">Bus Booking Details</h3>
+    <hr />
+    @if (!User.IsInRole("Admin"))
+    {
+        <p>
+            <a href="/BusRoutes/Index" class="btn btn-warning mt-2" title="Back to list"><i class="fas fa-long-arrow-alt-left"></i></a>
+        </p>
+        <form action="/BusRoutes/Seats" class="mt-3">
+            <table id="" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Depature)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Arrival)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DepatureDataTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ArrivalDateTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Bus.Name)
+                        </th>
+                        <th>
+                            Seats
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Depature)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Arrival)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.DepatureDataTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ArrivalDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Bus.Name)
+                        </td>
+                        <td>
+                            <input type="number" name="Seats" value="@ViewBag.Seats" class="form-control f" />
+                            <input type="hidden" name="BusRouteID" value="@ViewBag.BusRouteID" />
+                            <input type="hidden" name="BusID" value="@ViewBag.BusID" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-3">
+
+                <input type="submit" name="submit" value="Book Now" class="btn-primary" style="padding:0.5rem;border:none;width:100%;border-radius:3px;font-size:18" />
+            </div>
+
+        </div>
+    }
+
+    @if (User.IsInRole("Admin"))
+    {
+        <form class="mt-5">
+            <table id="" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Depature)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Arrival)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DepatureDataTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ArrivalDateTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Bus.Name)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Depature)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Arrival)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.DepatureDataTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ArrivalDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Bus.Name)
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <a href="/BusRoutes/Index" class="btn btn-warning" title="Back to list"><i class="fas fa-long-arrow-alt-left"></i> </a>
+
+    }
+
+</div>

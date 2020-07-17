@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BusModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="BusModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Logins" EntityType="BusModel.Login" />
+    <EntitySet Name="LoginRoles" EntityType="BusModel.LoginRoles" />
+    <AssociationSet Name="LoginLoginRoles" Association="BusModel.LoginLoginRoles">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="LoginRoles" EntitySet="LoginRoles" />
+    </AssociationSet>
+    <EntitySet Name="BusBookings" EntityType="BusModel.BusBooking" />
+    <AssociationSet Name="LoginBusBooking" Association="BusModel.LoginBusBooking">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="BusBooking" EntitySet="BusBookings" />
+    </AssociationSet>
+    <EntitySet Name="Buses" EntityType="BusModel.Bus" />
+    <AssociationSet Name="BusBusBooking" Association="BusModel.BusBusBooking">
+      <End Role="Bus" EntitySet="Buses" />
+      <End Role="BusBooking" EntitySet="BusBookings" />
+    </AssociationSet>
+    <EntitySet Name="BusRoutes" EntityType="BusModel.BusRoutes" />
+    <AssociationSet Name="BusBusRoutes" Association="BusModel.BusBusRoutes">
+      <End Role="Bus" EntitySet="Buses" />
+      <End Role="BusRoutes" EntitySet="BusRoutes" />
+    </AssociationSet>
+    <EntitySet Name="Drivers" EntityType="BusModel.Driver" />
+    <AssociationSet Name="BusRoutesBusBooking" Association="BusModel.BusRoutesBusBooking">
+      <End Role="BusRoutes" EntitySet="BusRoutes" />
+      <End Role="BusBooking" EntitySet="BusBookings" />
+    </AssociationSet>
+    <AssociationSet Name="BusDriver" Association="BusModel.BusDriver">
+      <End Role="Bus" EntitySet="Buses" />
+      <End Role="Driver" EntitySet="Drivers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <NavigationProperty Name="LoginRoles" Relationship="BusModel.LoginLoginRoles" FromRole="Login" ToRole="LoginRoles" />
+    <NavigationProperty Name="BusBookings" Relationship="BusModel.LoginBusBooking" FromRole="Login" ToRole="BusBooking" />
+    <Property Name="Contact" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoginRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role" Type="String" Nullable="false" />
+    <NavigationProperty Name="Login" Relationship="BusModel.LoginLoginRoles" FromRole="LoginRoles" ToRole="Login" />
+    <Property Name="LoginId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="LoginLoginRoles">
+    <End Type="BusModel.Login" Role="Login" Multiplicity="1" />
+    <End Type="BusModel.LoginRoles" Role="LoginRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LoginRoles">
+        <PropertyRef Name="LoginId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="BusBooking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NoOfSeats" Type="String" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Login" Relationship="BusModel.LoginBusBooking" FromRole="BusBooking" ToRole="Login" />
+    <Property Name="LoginId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Bus" Relationship="BusModel.BusBusBooking" FromRole="BusBooking" ToRole="Bus" />
+    <Property Name="BusId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BusRoute" Relationship="BusModel.BusRoutesBusBooking" FromRole="BusBooking" ToRole="BusRoutes" />
+    <Property Name="BusRoutesId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="LoginBusBooking">
+    <End Type="BusModel.Login" Role="Login" Multiplicity="1" />
+    <End Type="BusModel.BusBooking" Role="BusBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusBooking">
+        <PropertyRef Name="LoginId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Bus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Number" Type="String" Nullable="false" />
+    <Property Name="TotalSeats" Type="String" Nullable="false" />
+    <NavigationProperty Name="BusBookings" Relationship="BusModel.BusBusBooking" FromRole="Bus" ToRole="BusBooking" />
+    <NavigationProperty Name="BusRoutes" Relationship="BusModel.BusBusRoutes" FromRole="Bus" ToRole="BusRoutes" />
+    <NavigationProperty Name="Drivers" Relationship="BusModel.BusDriver" FromRole="Bus" ToRole="Driver" />
+  </EntityType>
+  <Association Name="BusBusBooking">
+    <End Type="BusModel.Bus" Role="Bus" Multiplicity="1" />
+    <End Type="BusModel.BusBooking" Role="BusBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusBooking">
+        <PropertyRef Name="BusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="BusRoutes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Depature" Type="String" Nullable="false" />
+    <Property Name="Arrival" Type="String" Nullable="false" />
+    <Property Name="DepatureDataTime" Type="DateTime" Nullable="false" />
+    <Property Name="ArrivalDateTime" Type="DateTime" Nullable="false" />
+    <Property Name="Price" Type="String" Nullable="false" />
+    <NavigationProperty Name="Bus" Relationship="BusModel.BusBusRoutes" FromRole="BusRoutes" ToRole="Bus" />
+    <Property Name="BusId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BusBookings" Relationship="BusModel.BusRoutesBusBooking" FromRole="BusRoutes" ToRole="BusBooking" />
+  </EntityType>
+  <Association Name="BusBusRoutes">
+    <End Type="BusModel.Bus" Role="Bus" Multiplicity="1" />
+    <End Type="BusModel.BusRoutes" Role="BusRoutes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusRoutes">
+        <PropertyRef Name="BusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Driver">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" />
+    <Property Name="ContactNo" Type="String" Nullable="false" />
+    <NavigationProperty Name="Bus" Relationship="BusModel.BusDriver" FromRole="Driver" ToRole="Bus" />
+    <Property Name="BusId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="BusRoutesBusBooking">
+    <End Type="BusModel.BusRoutes" Role="BusRoutes" Multiplicity="1" />
+    <End Type="BusModel.BusBooking" Role="BusBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BusRoutes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusBooking">
+        <PropertyRef Name="BusRoutesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BusDriver">
+    <End Type="BusModel.Bus" Role="Bus" Multiplicity="1" />
+    <End Type="BusModel.Driver" Role="Driver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Driver">
+        <PropertyRef Name="BusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

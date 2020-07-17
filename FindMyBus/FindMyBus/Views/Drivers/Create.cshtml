@@ -1,0 +1,60 @@
+﻿@model FindMyBus.Models.Driver
+
+@{
+    ViewBag.Title = "Create";
+}
+<div class="container">
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4 class="mt-4" style="text-transform:uppercase">Driver Create Form</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="container-fluid">
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.BusId, "BusId", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("BusId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BusId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="form-group mt-4">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="/Drivers/Index" class="btn btn-warning" title="Back to list"><i class="fas fa-long-arrow-alt-left"></i> </a>
+                <input type="submit" value="Add Driver" class="btn btn-primary" />
+            </div>
+        </div>
+
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

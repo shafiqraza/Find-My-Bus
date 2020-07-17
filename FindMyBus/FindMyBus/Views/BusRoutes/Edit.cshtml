@@ -1,0 +1,75 @@
+﻿@model FindMyBus.Models.BusRoutes
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="container">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4 class="mt-4" style="text-align:center;text-transform:uppercase">Bus Routes Edit Form</h4>
+            <hr />
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="container-fluid">
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Depature, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.Depature, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Depature, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Arrival, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Arrival, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Arrival, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.DepatureDataTime, htmlAttributes: new { @class = "control-label " })
+                        <input class="form-control text-box single-line" data-val="true" data-val-date="The field DepatureDataTime must be a date." data-val-required="The DepatureDataTime field is required." id="DepatureDataTime" name="DepatureDataTime" type="datetime-local" value="03/01/2020 12:00:00 PM" />
+                        @Html.ValidationMessageFor(model => model.DepatureDataTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.ArrivalDateTime, htmlAttributes: new { @class = "control-label " })
+                        <input class="form-control text-box single-line" data-val="true" data-val-date="The field ArrivalDateTime must be a date." data-val-required="The ArrivalDateTime field is required." id="ArrivalDateTime" name="ArrivalDateTime" type="datetime-local" value="31/01/2020 2:30:00 PM" />
+                        @Html.ValidationMessageFor(model => model.ArrivalDateTime, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.BusId, "BusId", htmlAttributes: new { @class = "control-label " })
+                        @Html.DropDownList("BusId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BusId, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="/BusRoutes/Index" class="btn btn-warning" title="Back to list"><i class="fas fa-long-arrow-alt-left"></i> </a>
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
